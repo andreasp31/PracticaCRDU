@@ -2,8 +2,8 @@
 
 const prompt = require("prompt-sync")();
 const XLSX = require("xlsx");
-
 const fs = require("fs");
+
 
 let nombre_hoja;
 let nombre_excel;
@@ -56,8 +56,8 @@ class estudiante{
         const hoja = leer.SheetNames[0];
         const archivo = leer.Sheets[hoja];
     
-        //Ese estudiante se añade al json de datos y se escriben en el excel
-        XLSX.utils.sheet_add_json(archivo,[nuevo_estudiante],{ origin: -1 });
+        //Ese estudiante se añade al json de datos y se escriben en el excel, busqué lo del skipHeader para no tener que hacer lo del for
+        XLSX.utils.sheet_add_json(archivo,[nuevo_estudiante],{ origin: -1, skipHeader: true });
         XLSX.writeFile(leer,"Excel/"+nombre_excel+".xlsx");
         console.log("Datos añadidos correctamente."); 
         
@@ -311,3 +311,16 @@ function otra_accion(){
 
 menu();
 seleccionar_menu();
+
+
+//Exportar todas las funciones y clases
+module.exports = {
+    menu,
+    seleccionar_menu,
+    estudiante,
+    crear_excel,
+    leer_excel,
+    editar_excel,
+    borrar_excel,
+    otra_accion
+};
